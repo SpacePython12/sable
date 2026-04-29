@@ -1,5 +1,5 @@
 use crate::config::{JOINT_SPRING_DAMPING_RATIO, JOINT_SPRING_FREQUENCY};
-use crate::scene::LevelColliderID;
+use crate::scene::{LevelColliderID, PhysicsScene};
 use crate::{get_scene_mut_ref, get_scene_ref};
 use jni::JNIEnv;
 use jni::objects::{JClass, JDoubleArray};
@@ -48,8 +48,7 @@ impl SableJointSet {
     }
 }
 
-pub fn tick(scene_id: jint) {
-    let scene = get_scene_mut_ref(scene_id);
+pub fn tick(scene: &mut PhysicsScene) {
     // filter the joints
     scene
         .joint_set

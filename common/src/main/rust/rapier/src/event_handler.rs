@@ -28,11 +28,7 @@ impl EventHandler for SableEventHandler {
         contact_pair: &ContactPair,
         total_force_magnitude: Real,
     ) {
-        let Some(state) = (unsafe { &mut PHYSICS_STATE }) else {
-            panic!("no physics state!")
-        };
-
-        let Some(scene) = state.scenes.get_mut(&self.scene_id) else {
+        let Some(scene) = unsafe { &mut PHYSICS_STATE }.scenes.get_mut(&self.scene_id) else {
             panic!("No scene with given ID!");
         };
 

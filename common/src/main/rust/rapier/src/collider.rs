@@ -72,11 +72,7 @@ impl Shape for LevelCollider {
             )
         } else {
             unsafe {
-                let Some(state) = &PHYSICS_STATE else {
-                    panic!("no physics state!")
-                };
-
-                let Some(scene) = state.scenes.get(&self.scene_id) else {
+                let Some(scene) = PHYSICS_STATE.scenes.get(&self.scene_id) else {
                     panic!("No scene with given ID!");
                 };
 

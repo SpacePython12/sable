@@ -21,16 +21,14 @@ pub extern "system" fn Java_dev_ryanhcode_sable_physics_impl_rapier_Rapier3D_con
     collision_damping_ratio: jdouble,
 ) {
     unsafe {
-        if let Some(state) = &mut PHYSICS_STATE {
-            state
-                .integration_parameters
-                .contact_softness
-                .natural_frequency = collision_natural_frequency as Real;
-            state.integration_parameters.contact_softness.damping_ratio =
-                collision_damping_ratio as Real;
-        } else {
-            panic!("No physics state!");
-        }
+        PHYSICS_STATE
+            .integration_parameters
+            .contact_softness
+            .natural_frequency = collision_natural_frequency as Real;
+        PHYSICS_STATE
+            .integration_parameters
+            .contact_softness
+            .damping_ratio = collision_damping_ratio as Real;
     }
 }
 
@@ -45,17 +43,13 @@ pub extern "system" fn Java_dev_ryanhcode_sable_physics_impl_rapier_Rapier3D_con
     num_internal_stabilization_iterations: jint,
 ) {
     unsafe {
-        if let Some(state) = &mut PHYSICS_STATE {
-            state.integration_parameters.num_solver_iterations = num_solver_iterations as usize;
-            state.integration_parameters.num_internal_pgs_iterations =
-                num_internal_pgs_iterations as usize;
-            state
-                .integration_parameters
-                .num_internal_stabilization_iterations =
-                num_internal_stabilization_iterations as usize;
-        } else {
-            panic!("No physics state!");
-        }
+        PHYSICS_STATE.integration_parameters.num_solver_iterations = num_solver_iterations as usize;
+        PHYSICS_STATE
+            .integration_parameters
+            .num_internal_pgs_iterations = num_internal_pgs_iterations as usize;
+        PHYSICS_STATE
+            .integration_parameters
+            .num_internal_stabilization_iterations = num_internal_stabilization_iterations as usize;
     }
 }
 
@@ -68,10 +62,6 @@ pub extern "system" fn Java_dev_ryanhcode_sable_physics_impl_rapier_Rapier3D_con
     island_size: jint,
 ) {
     unsafe {
-        if let Some(state) = &mut PHYSICS_STATE {
-            state.integration_parameters.min_island_size = island_size as usize;
-        } else {
-            panic!("No physics state!");
-        }
+        PHYSICS_STATE.integration_parameters.min_island_size = island_size as usize;
     }
 }

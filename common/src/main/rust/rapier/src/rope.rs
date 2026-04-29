@@ -15,7 +15,7 @@ use rapier3d::prelude::{
 use crate::config::{JOINT_SPRING_DAMPING_RATIO, JOINT_SPRING_FREQUENCY};
 use crate::get_scene_mut_ref;
 use crate::groups::ROPE_GROUP;
-use crate::scene::LevelColliderID;
+use crate::scene::{LevelColliderID, PhysicsScene};
 
 const MIN_BOUND_STIFFNESS: Real = 150.0;
 const MIN_BOUND_DAMPING: Real = 10.0;
@@ -42,8 +42,7 @@ pub struct RopeMap {
     ropes: HashMap<usize, RopeStrand>,
 }
 
-pub fn tick(scene_id: jint) {
-    let scene = get_scene_mut_ref(scene_id);
+pub fn tick(scene: &mut PhysicsScene) {
     for (_, rope) in scene.rope_map.ropes.iter_mut() {
         if rope.start_attachment.is_some() {
             let attachment = rope.start_attachment.as_ref().unwrap();
